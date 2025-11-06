@@ -15,7 +15,7 @@ AS = $(CROSS_COMPILE)as
 LD = $(CROSS_COMPILE)ld
 OBJDUMP = $(CROSS_COMPILE)objdump
 
-OBJS = start.o main.o perfcounter.o chacha20_asm.o
+OBJS = start.o main.o perfcounter.o uf8_clz.o uf8_decode.o uf8_encode.o
 
 .PHONY: all run dump clean
 
@@ -34,7 +34,7 @@ run: $(EXEC)
 	@test -f $(EMU) || (echo "Error: $(EMU) not found" && exit 1)
 	@grep -q "ENABLE_ELF_LOADER=1" ../build/.config || (echo "Error: ENABLE_ELF_LOADER=1 not set" && exit 1)
 	@grep -q "ENABLE_SYSTEM=1" ../build/.config || (echo "Error: ENABLE_SYSTEM=1 not set" && exit 1)
-	$(EMU) $<
+	$(EMU) $(EXEC)
 
 dump: $(EXEC)
 	$(OBJDUMP) -Ds $< | less
