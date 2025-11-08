@@ -5,7 +5,6 @@
 *.o
 *.ko
 *.obj
-*.elf
 
 # Linker output
 *.ilk
@@ -53,3 +52,22 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+
+# Output files from Build
+*.tar.gz
+*.gz
+*.zip
+linux-image/
+linux-x86-softfp/
+riscv32/
+softfloat/
+sha1sum-linux-image
+sha1sum-linux-x86-softfp
+sha1sum-riscv32
+doomrc
+DOOM1.WAD
+EOF
+
+# IDE
+.vscode/
