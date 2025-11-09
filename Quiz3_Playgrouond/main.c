@@ -1,7 +1,6 @@
 // rv32i_fast_rsqrt.c
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include <string.h>
 
 #define printstr(ptr, length)                   \
@@ -14,7 +13,7 @@
             "ecall;"                            \
             :                                   \
             : "r"(ptr), "r"(length)             \
-            : "a0", "a1", "a2", "a7");          \
+            : "a0", "a1", "a2", "a7", "memory");          \
     } while (0)
 
 #define TEST_OUTPUT(msg, length) printstr(msg, length)
@@ -237,7 +236,7 @@ static int clz(uint32_t x) {
 
 
 /* --------- Lookup table: initial estimates for 65536 / sqrt(2^exp) --------- */
-static const uint16_t rsqrt_table[32] = {
+static const uint32_t rsqrt_table[32] = {
     65536, 46341, 32768, 23170, 16384,  /* 2^0  to 2^4  */
     11585,  8192,  5793,  4096,  2896,  /* 2^5  to 2^9  */
      2048,  1448,  1024,   724,   512,  /* 2^10 to 2^14 */
@@ -286,25 +285,48 @@ uint32_t fast_rsqrt(uint32_t x) {
 
 /* ------------------------- 小型測試 ------------------------------ */
 int main(void) {
+
+    uint64_t start_cycles, end_cycles, cycles_elapsed;
+    uint64_t start_instret, end_instret, instret_elapsed;
+
     uint32_t xs[] = {1, 4, 16, 20, 100, 0, 0xFFFFFFFFu};
+
+    TEST_LOGGER("========= Fast Reciprocal Square Root Performance Test =========\n\n");
     for (unsigned i = 0; i < sizeof(xs)/sizeof(xs[0]); ++i) {
         uint32_t x = xs[i];
         TEST_LOGGER("x = ");
         print_dec(x);
 
+        start_cycles = get_cycles();
+        start_instret = get_instret();
 
         uint32_t y = fast_rsqrt(x);
+
+        end_cycles = get_cycles();
+        end_instret = get_instret();
+        cycles_elapsed = end_cycles - start_cycles;
+        instret_elapsed = end_instret - start_instret;
+
         TEST_LOGGER("  y = ");
         print_dec(y);
+
         if (y == 0xFFFFFFFFu) {
             TEST_LOGGER("  (Actual value = infinity)\n");
-            continue;
+        }else{
+            TEST_LOGGER("  (y/65536 ~= ");
+            /* print integer.part and fractional part (6 digits) */
+            print_q16(y, 6);
+            TEST_LOGGER(")\n");
         }
-        TEST_LOGGER("  (y/65536 ~= ");
-        /* print integer.part and fractional part (6 digits) */
-        print_q16(y, 6);
-        TEST_LOGGER(")\n");
-        
+
+        TEST_LOGGER("  Cycles: ");
+        print_dec((unsigned long) cycles_elapsed);
+        TEST_LOGGER("  Instructions: ");
+        print_dec((unsigned long) instret_elapsed);
+        TEST_LOGGER("\n");
     }
+
+    TEST_LOGGER("========= End of Fast Reciprocal Square Root Performance Test =========\n");
+
     return 0;
 }
