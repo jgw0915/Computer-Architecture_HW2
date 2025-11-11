@@ -1292,7 +1292,7 @@ Disassembly of section .text:
    102d4:	ef9ff06f          	j	101cc <fast_rsqrt.part.0+0x190>
    102d8:	00c12403          	lw	s0,12(sp)
    102dc:	01010113          	addi	sp,sp,16
-   102e0:	00008067          	ret
+      ret
    102e4:	da07d8e3          	bgez	a5,10094 <fast_rsqrt.part.0+0x58>
    102e8:	01f00813          	li	a6,31
    102ec:	40e806b3          	sub	a3,a6,a4
@@ -1333,7 +1333,7 @@ Disassembly of section .text:
    10370:	00078613          	mv	a2,a5
    10374:	00000073          	ecall
    10378:	02010113          	addi	sp,sp,32
-   1037c:	00008067          	ret
+      ret
    10380:	01e10313          	addi	t1,sp,30
    10384:	00900593          	li	a1,9
    10388:	fff00613          	li	a2,-1
@@ -1402,7 +1402,7 @@ Disassembly of section .text:
    1047c:	02e80663          	beq	a6,a4,104a8 <memcpy+0xa0>
    10480:	0026c703          	lbu	a4,2(a3)
    10484:	00e78123          	sb	a4,2(a5)
-   10488:	00008067          	ret
+      ret
    1048c:	00c50633          	add	a2,a0,a2
    10490:	00050793          	mv	a5,a0
    10494:	fff74683          	lbu	a3,-1(a4)
@@ -1410,7 +1410,7 @@ Disassembly of section .text:
    1049c:	00170713          	addi	a4,a4,1
    104a0:	fed78fa3          	sb	a3,-1(a5)
    104a4:	fec798e3          	bne	a5,a2,10494 <memcpy+0x8c>
-   104a8:	00008067          	ret
+      ret
 
 000104ac <__mulsi3>:
    104ac:	00050713          	mv	a4,a0
@@ -1423,8 +1423,8 @@ Disassembly of section .text:
    104c8:	00f50533          	add	a0,a0,a5
    104cc:	00171713          	slli	a4,a4,0x1
    104d0:	fe0594e3          	bnez	a1,104b8 <__mulsi3+0xc>
-   104d4:	00008067          	ret
-   104d8:	00008067          	ret
+      ret
+      ret
 
 000104dc <fast_rsqrt>:
    104dc:	00050863          	beqz	a0,104ec <fast_rsqrt+0x10>
@@ -1432,9 +1432,9 @@ Disassembly of section .text:
    104e4:	00e50863          	beq	a0,a4,104f4 <fast_rsqrt+0x18>
    104e8:	b55ff06f          	j	1003c <fast_rsqrt.part.0>
    104ec:	fff00513          	li	a0,-1
-   104f0:	00008067          	ret
+      ret
    104f4:	00010537          	lui	a0,0x10
-   104f8:	00008067          	ret
+      ret
 
 000104fc <main>:
    104fc:	000117b7          	lui	a5,0x11
@@ -1632,7 +1632,7 @@ Disassembly of section .text:
    107fc:	06012b03          	lw	s6,96(sp)
    10800:	00000513          	li	a0,0
    10804:	08010113          	addi	sp,sp,128
-   10808:	00008067          	ret
+      ret
    1080c:	ee0616e3          	bnez	a2,106f8 <main+0x1fc>
    10810:	03000793          	li	a5,48
    10814:	00f10623          	sb	a5,12(sp)
@@ -1716,14 +1716,12 @@ Disassembly of section .text:
    10944:	c0002573          	rdcycle	a0
    10948:	c8002673          	rdcycleh	a2
    1094c:	fec59ae3          	bne	a1,a2,10940 <get_cycles>
-   10950:	00008067          	ret
-
-00010954 <get_instret>:
-   10954:	c82025f3          	rdinstreth	a1
-   10958:	c0202573          	rdinstret	a0
-   1095c:	c8202673          	rdinstreth	a2
-   10960:	fec59ae3          	bne	a1,a2,10954 <get_instret>
-   10964:	00008067          	ret
+      ret>:
+   10954    reth	a1
+   10958    ret	a0
+   1095c    reth	a2
+   10960:	fec59ae3             ret>
+      ret
 
 00010968 <__ashldi3>:
    10968:	03f00793          	li	a5,63
@@ -1734,17 +1732,17 @@ Disassembly of section .text:
    1097c:	fe060613          	addi	a2,a2,-32
    10980:	00c515b3          	sll	a1,a0,a2
    10984:	00000513          	li	a0,0
-   10988:	00008067          	ret
+      ret
    1098c:	00000513          	li	a0,0
    10990:	00000593          	li	a1,0
-   10994:	00008067          	ret
+      ret
    10998:	02000793          	li	a5,32
    1099c:	40c787b3          	sub	a5,a5,a2
    109a0:	00f557b3          	srl	a5,a0,a5
    109a4:	00c595b3          	sll	a1,a1,a2
    109a8:	00b7e5b3          	or	a1,a5,a1
    109ac:	00c51533          	sll	a0,a0,a2
-   109b0:	00008067          	ret
+      ret
 
 000109b4 <__lshrdi3>:
    109b4:	03f00793          	li	a5,63
@@ -1755,17 +1753,17 @@ Disassembly of section .text:
    109c8:	fe060613          	addi	a2,a2,-32
    109cc:	00c5d533          	srl	a0,a1,a2
    109d0:	00000593          	li	a1,0
-   109d4:	00008067          	ret
+      ret
    109d8:	00000513          	li	a0,0
    109dc:	00000593          	li	a1,0
-   109e0:	00008067          	ret
+      ret
    109e4:	02000793          	li	a5,32
    109e8:	40c787b3          	sub	a5,a5,a2
    109ec:	00f597b3          	sll	a5,a1,a5
    109f0:	00c55533          	srl	a0,a0,a2
    109f4:	00a7e533          	or	a0,a5,a0
    109f8:	00c5d5b3          	srl	a1,a1,a2
-   109fc:	00008067          	ret
+      ret
    10a00:	2020                	.insn	2, 0x2020
    10a02:	7928                	.insn	2, 0x7928
    10a04:	3535362f          	.insn	4, 0x3535362f
