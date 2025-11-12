@@ -11,7 +11,7 @@ uf8_clz:
 # t3 -> y (temporary, store x >> c).
 
 # initialize stack frame
-        addi    sp,sp,-8          # prologue: make 48B stack frame
+        addi    sp,sp,-16          # prologue: make 48B stack frame
         sw      ra,4(sp)          # save ra
         sw      s0,0(sp)          # save s0
         addi    s0,sp,8           # s0 = frame pointer
@@ -32,5 +32,6 @@ SKIP:
         sub     a0,t1,t0          # return n - x;
         lw      ra,4(sp)          # epilogue
         lw      s0,0(sp)
-        addi    sp,sp,8
+        addi    sp,sp,16
         jr      ra
+        
