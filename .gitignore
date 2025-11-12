@@ -71,3 +71,4 @@ EOF
 
 # IDE
 .vscode/
+.dumpid

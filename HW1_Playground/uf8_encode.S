@@ -18,10 +18,10 @@ uf8_encode:
 #   -12(s0) : uint32_t value (spill)
 
 #   initialize stack frame
-        addi    sp,sp,-12
+        addi    sp,sp,-16
         sw      ra,8(sp)
         sw      s0,4(sp)
-        addi    s0,sp,12
+        addi    s0,sp,16
 
 #   quick return for value <= 15
         addi    a1,zero,15        # a1 = 15
@@ -97,5 +97,6 @@ finalize:
 uf8_encode_return:
         lw      ra,8(sp)          # epilogue: restore ra
         lw      s0,4(sp)          # restore s0
-        addi    sp,sp,12           # free frame
+        addi    sp,sp,16           # free frame
         jr      ra                 # return
+        

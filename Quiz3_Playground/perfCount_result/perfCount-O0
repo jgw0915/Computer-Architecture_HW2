@@ -1,0 +1,45 @@
+========= Fast Reciprocal Square Root Performance Test =========
+
+x = 1
+  y = 65536
+  (y/65536 ~= 1.000000)
+  Cycles: 56
+  Instructions: 56
+
+x = 4
+  y = 32768
+  (y/65536 ~= 0.500000)
+  Cycles: 2783
+  Instructions: 2783
+
+x = 16
+  y = 16384
+  (y/65536 ~= 0.250000)
+  Cycles: 2783
+  Instructions: 2783
+
+x = 20
+  y = 14654
+  (y/65536 ~= 0.223602)
+  Cycles: 4692
+  Instructions: 4692
+
+x = 100
+  y = 6553
+  (y/65536 ~= 0.099991)
+  Cycles: 4478
+  Instructions: 4478
+
+x = 0
+  y = 4294967295
+  (Actual value = infinity)
+  Cycles: 42
+  Instructions: 42
+
+x = 4294967295
+  y = 1
+  (y/65536 ~= 0.000015)
+  Cycles: 3702
+  Instructions: 3702
+
+========= End of Fast Reciprocal Square Root Performance Test =========

@@ -14,7 +14,7 @@ uf8_decode:
 # Stack frame (relative to s0):
 # -48(s0) : reserved ra (save area)
 # -44(s0) : reserved s0 (save area)
-        addi    sp,sp,-8          # prologue: allocate 8B frame
+        addi    sp,sp,-16         # prologue: allocate 8B frame
         sw      ra,4(sp)          # save ra
         sw      s0,0(sp)          # save s0
         addi    s0,sp,8           # s0 = sp + 8 (set FP)
@@ -34,5 +34,6 @@ uf8_decode:
 
         lw      ra,4(sp)          # epilogue
         lw      s0,0(sp)          # restore s0
-        addi    sp,sp,8           # free frame
+        addi    sp,sp,16           # free frame
         jr      ra                 # return
+        
