@@ -156,20 +156,59 @@ static bool test(void)
 {
     int32_t previous_value = -1;
     bool passed = true;
+    uint64_t start_cycles, end_cycles, cycles_elapsed;
+    uint64_t start_instret, end_instret, instret_elapsed;
 
+    TEST_LOGGER("=== UF8 Encode/Decode Round-Trip Test ===\n\n");
     for (int i = 0; i < 256; i++) {
         uint8_t fl = i;
+
+        start_cycles = get_cycles();
+        start_instret = get_instret();
+
         int32_t value = uf8_decode(fl);
         uint8_t fl2 = uf8_encode(value);
 
+        end_cycles = get_cycles();
+        end_instret = get_instret();
+        cycles_elapsed = end_cycles - start_cycles;
+        instret_elapsed = end_instret - start_instret;
+
         if (fl != fl2) {
-            TEST_LOGGER("Test Failed \n");
+            TEST_LOGGER("Re-encode Test Failed: \n");
+            print_hex((unsigned long)fl);
+            TEST_LOGGER(": produce value ");
+            print_dec((unsigned long)value);
+            TEST_LOGGER(", but re-encoded back to ");
+            print_hex((unsigned long)fl2);
+            TEST_LOGGER("\n");
             passed = false;
         }
 
         if (value <= previous_value) {
-            TEST_LOGGER("Test Failed \n");
+            TEST_LOGGER("Previous value Test Failed :\n");
+            print_hex((unsigned long)fl);
+            TEST_LOGGER(": value ");
+            print_dec((unsigned long)value);
+            TEST_LOGGER(" <= previous value ");
+            print_dec((unsigned long)previous_value);
+            TEST_LOGGER("\n");
             passed = false;
+        }
+
+        if (passed){
+            TEST_LOGGER("uf8: 0x");
+            print_hex((unsigned long)fl);
+            TEST_LOGGER("Decoded value: ");
+            print_dec((unsigned long)value);
+            TEST_LOGGER("Re-encoded uf8: 0x");
+            print_hex((unsigned long)fl2);
+            TEST_LOGGER("Cycles (decode/encode): ");
+            print_dec((unsigned long) cycles_elapsed);
+            TEST_LOGGER("Instructions (decode/encode): ");
+            print_dec((unsigned long) instret_elapsed);
+
+            TEST_LOGGER("\n");
         }
 
         previous_value = value;
@@ -184,6 +223,8 @@ int main(void)
     if (test()) {
         TEST_LOGGER("=== All tests passed ===\n");
         return 0;
+    }else{
+        TEST_LOGGER("=== Some tests failed ===\n");
     }
     return 1;
 }
