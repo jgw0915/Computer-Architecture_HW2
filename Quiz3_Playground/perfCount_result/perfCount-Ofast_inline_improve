@@ -24,9 +24,27 @@ x = 20
   Cycles: 317
   Instructions: 317
 
+x = 30
+  y = 11965
+  (y/65536 ~= 0.182571)
+  Cycles: 67
+  Instructions: 67
+
 x = 100
   y = 6553
   (y/65536 ~= 0.099991)
+  Cycles: 65
+  Instructions: 65
+
+x = 120
+  y = 5982
+  (y/65536 ~= 0.091278)
+  Cycles: 65
+  Instructions: 65
+
+x = 130
+  y = 5747
+  (y/65536 ~= 0.087692)
   Cycles: 65
   Instructions: 65
 
